@@ -3,9 +3,12 @@
     <img src="assets/img/logo.png" alt="logo" srcset="" class="header__logo" />
 
     <div class="header__btns">
-      <div class="header__btns-btn" *ngFor="let link of links">
-        <a [routerLink]="[link.path]">{{ link.text }}</a>
-      </div>
+      <a
+        class="header__btns-btn btn btn--lg btn--border-primary"
+        [routerLink]="[link.path]"
+        *ngFor="let link of links; trackBy: trackByFn"
+        >{{ link.text }}</a
+      >
     </div>
   </div>
 </header>
