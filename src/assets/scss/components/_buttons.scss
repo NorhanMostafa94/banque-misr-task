@@ -1,0 +1,26 @@
+.btn {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: 0.3s all;
+
+    &--sm {
+        padding: 0 8px;
+    }
+
+    &--md {
+        padding: 0 12px;
+    }
+
+    &--lg {
+        padding: 0 16px;
+    }
+
+    &--border-primary {
+        border: 1px solid $primary-main;
+        &:hover {
+            background-color: $primary-main;
+        }
+    }
+}
