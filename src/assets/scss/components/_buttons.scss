@@ -6,20 +6,22 @@
     transition: 0.3s all;
 
     &--sm {
-        padding: 0 8px;
+        padding: 0 16px;
     }
 
     &--md {
-        padding: 0 12px;
+        padding: 0 24px;
     }
 
     &--lg {
-        padding: 0 16px;
+        padding: 0 32px;
     }
 
     &--border-primary {
         border: 1px solid $primary-main;
+        color: $primary-main;
         &:hover {
+            color: $primary-main;
             background-color: $primary-main;
         }
     }
