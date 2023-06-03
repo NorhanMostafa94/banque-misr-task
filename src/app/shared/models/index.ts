@@ -1,0 +1,1 @@
+export { ILink } from './link';
