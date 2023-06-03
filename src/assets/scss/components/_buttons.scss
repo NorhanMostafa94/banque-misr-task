@@ -1,0 +1,29 @@
+.btn {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: 0.3s all;
+    outline: none !important;
+
+    &--sm {
+        padding: 4px 16px;
+    }
+
+    &--md {
+        padding: 8px 24px;
+    }
+
+    &--lg {
+        padding: 16px 32px;
+    }
+
+    &--border-primary {
+        border: 1px solid $primary-main;
+        color: $primary-main;
+        &:hover {
+            color: $white !important;
+            background-color: $primary-main;
+        }
+    }
+}

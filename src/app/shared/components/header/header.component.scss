@@ -1,0 +1,20 @@
+@import "abstracts/colors";
+
+.header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-bottom: 1px solid $primary-light;
+    &__logo {
+        width: 60px;
+        height: 60px;
+    }
+    &__btns {
+        display: flex;
+        &-btn {
+            margin: 0 5px;
+        }
+    }
+}
