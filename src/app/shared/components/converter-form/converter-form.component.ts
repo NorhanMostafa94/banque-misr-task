@@ -22,7 +22,7 @@ export class ConverterFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getCurrencies();
+    this.getCurrencies();
     this.initiateForm();
   }
 

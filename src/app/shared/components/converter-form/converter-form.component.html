@@ -1,87 +1,90 @@
 <div class="converter-form">
   <form [formGroup]="converterForm">
-    <div class="converter-form__form">
-      <div class="converter-form__form-container">
-        <div class="converter-form__form-control">
-          <label class="label" for="amount">Amount</label>
-          <input type="number" name="amount" formControlName="amount" />
-          <!-- <p>{{ converterForm.get("amount") }}</p> -->
-        </div>
+    <div class="row">
+      <div class="col-12 col-md-4 mb-2">
+        <label class="label" for="amount">Amount</label>
+        <input
+          class="form-control"
+          type="number"
+          name="amount"
+          formControlName="amount"
+        />
+        <!-- <p>{{ converterForm.get("amount") }}</p> -->
       </div>
-      <div class="converter-form__form">
-        <div class="converter-form__form-container">
-          <div class="controls">
-            <div class="converter-form__form-control">
-              <label class="label" for="from">From</label>
-              <select name="from" formControlName="from">
-                <option
-                  [value]="currency"
-                  *ngFor="
-                    let currency of currencies
-                      | filterList : converterForm.get('to')?.value
-                  "
-                >
-                  {{ currency }}
-                </option>
-              </select>
-              <!-- <p>{{ converterForm.get("amount") }}</p> -->
-            </div>
+      <div class="col-12 col-md-8 mb-2">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-5 mb-2">
+            <label class="label" for="from">From</label>
+            <select class="form-control" name="from" formControlName="from">
+              <option
+                [value]="currency"
+                *ngFor="
+                  let currency of currencies
+                    | filterList : converterForm.get('to')?.value
+                "
+              >
+                {{ currency }}
+              </option>
+            </select>
+            <!-- <p>{{ converterForm.get("amount") }}</p> -->
+          </div>
+
+          <div class="col-12 col-md-2 mb-2 mx-auto mt-4">
             <button
-              class="converter-form__form__exchange-btn btn btn--sm btn--border-primary"
+              class="btn btn--sm btn--border-primary"
               (click)="exchange()"
             >
               ← swap →
             </button>
-            <div class="converter-form__form-control">
-              <label class="label" for="to">To</label>
-              <select name="to" formControlName="to">
-                <option
-                  [value]="currency"
-                  *ngFor="
-                    let currency of currencies
-                      | filterList : converterForm.get('from')?.value
-                  "
-                >
-                  {{ currency }}
-                </option>
-              </select>
-              <!-- <p>{{ converterForm.get("amount") }}</p> -->
-            </div>
           </div>
-          <button
-            class="converter-form__form-btn btn btn--lg btn--primary"
-            [disabled]="converterForm.invalid"
-            (click)="convert()"
-          >
-            Convert
-          </button>
+          <div class="col-12 col-md-5 mb-2">
+            <label class="label" for="to">To</label>
+            <select class="form-control" name="to" formControlName="to">
+              <option
+                [value]="currency"
+                *ngFor="
+                  let currency of currencies
+                    | filterList : converterForm.get('from')?.value
+                "
+              >
+                {{ currency }}
+              </option>
+            </select>
+            <!-- <p>{{ converterForm.get("amount") }}</p> -->
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12 col-12 mb-2">
+            <button
+              class="w-100 btn btn--lg btn-primary"
+              [disabled]="converterForm.invalid"
+              (click)="convert()"
+            >
+              Convert
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </form>
-  <div class="converter-form__form">
-    <div class="converter-form__form-container">
-      <div
-        class="converter-form__form-control converter-form__form-control--value"
-      >
-        <input type="number" [value]="convertedValue" />
-      </div>
+  <div class="row mt-5">
+    <div class="col-12 col-md-4 mb-2">
+      <input class="form-control" type="number" [value]="convertedValue" />
     </div>
-    <div class="converter-form__form-container">
-      <div class="controls">
-        <div
-          class="converter-form__form-control converter-form__form-control--value"
-        >
-          <input type="text" [value]="exchangeValue" />
-          <!-- <p>{{ converterForm.get("amount") }}</p> -->
+    <div class="col-12 col-md-8 mb-2">
+      <div class="row">
+        <div class="col-12 col-md-5 mb-2">
+          <input class="form-control" type="text" [value]="exchangeValue" />
         </div>
-        <button
-          class="converter-form__form-btn btn btn--lg btn--primary"
-          [disabled]="converterForm.invalid"
-          (click)="convert()"
-        >
-          More Details
-        </button>
+        <div class="col-12 col-md-7 mb-2">
+          <button
+            class="w-100 btn btn--lg btn-primary"
+            [disabled]="converterForm.invalid"
+            (click)="convert()"
+          >
+            More Details
+          </button>
+        </div>
       </div>
     </div>
   </div>
