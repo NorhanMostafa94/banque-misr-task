@@ -1,6 +1,20 @@
 <section class="home">
   <h1 class="home__title">Curreny Exchanger</h1>
   <div class="mt-5">
-    <app-converter-form></app-converter-form>
+    <app-converter-form (amountValue)="getAmount($event)"></app-converter-form>
+  </div>
+  <div class="row">
+    <div
+      class="col-md-4 mb-2"
+      *ngFor="let currency of currencies | slice : 0 : 9"
+    >
+      <div class="home__card rounded">
+        <app-popular-currency-card
+          [amount]="amount"
+          [currency]="currency[0]"
+          [value]="currency[1]"
+        ></app-popular-currency-card>
+      </div>
+    </div>
   </div>
 </section>

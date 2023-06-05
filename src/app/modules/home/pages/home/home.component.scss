@@ -1,0 +1,8 @@
+@import "abstracts/colors";
+
+.home {
+    &__card {
+        height: 200px;
+        border: 1px solid $gray;
+    }
+}

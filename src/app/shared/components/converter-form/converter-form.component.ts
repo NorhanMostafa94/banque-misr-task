@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+
+// interface
 import { ApiResponse } from 'src/app/core/interfaces';
-import { ConverterService } from 'src/app/modules/home/services/converter.service';
+
+// services
+import { ConverterService } from '../../services/converter.service';
 
 @Component({
   selector: 'app-converter-form',
@@ -11,10 +21,12 @@ import { ConverterService } from 'src/app/modules/home/services/converter.servic
 export class ConverterFormComponent implements OnInit {
   converterForm: FormGroup = new FormGroup({});
 
-  currencies: string[] = [];
-
   convertedValue: number = 0;
   exchangeValue: string = '';
+
+  currencies: string[] = [];
+
+  @Output() amountValue = new EventEmitter<number>();
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +86,7 @@ export class ConverterFormComponent implements OnInit {
    */
   convert(): void {
     const payload = this.converterForm.value;
+    this.amountValue.emit(payload.amount);
     this.convertService
       .convert({ ...payload })
       .subscribe((res: ApiResponse) => {
