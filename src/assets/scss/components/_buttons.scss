@@ -2,9 +2,11 @@
     width: max-content;
     display: flex;
     align-items: center;
+    justify-content: center;
     border: 1px solid transparent;
     transition: 0.3s all;
     outline: none !important;
+    cursor: pointer;
 
     &--sm {
         padding: 4px 16px;
@@ -18,6 +20,10 @@
         padding: 16px 32px;
     }
 
+    &--primary {
+        color: $white;
+        background-color: $primary-main;
+    }
     &--border-primary {
         border: 1px solid $primary-main;
         color: $primary-main;
@@ -25,5 +31,10 @@
             color: $white !important;
             background-color: $primary-main;
         }
+    }
+
+    &:disabled{
+        background-color: $gray;
+        cursor: not-allowed;
     }
 }
