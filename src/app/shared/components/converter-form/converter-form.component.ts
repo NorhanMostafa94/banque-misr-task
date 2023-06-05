@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -12,13 +12,14 @@ import { ApiResponse } from 'src/app/core/interfaces';
 
 // services
 import { ConverterService } from '../../services/converter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-converter-form',
   templateUrl: './converter-form.component.html',
   styleUrls: ['./converter-form.component.scss'],
 })
-export class ConverterFormComponent implements OnInit {
+export class ConverterFormComponent implements OnInit, OnChanges {
   converterForm: FormGroup = new FormGroup({});
 
   convertedValue: number = 0;
@@ -26,12 +27,23 @@ export class ConverterFormComponent implements OnInit {
 
   currencies: string[] = [];
 
+  @Input() from: string = 'EUR';
+  @Input() to: string = 'USD';
+  @Input() amount: number = 1;
+
   @Output() amountValue = new EventEmitter<number>();
 
   constructor(
     private fb: FormBuilder,
-    private convertService: ConverterService
+    private convertService: ConverterService,
+    private router: Router
   ) {}
+
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initiateForm();
+    this.convert();
+  }
 
   ngOnInit(): void {
     this.getCurrencies();
@@ -43,9 +55,9 @@ export class ConverterFormComponent implements OnInit {
    */
   initiateForm(): void {
     this.converterForm = this.fb.group({
-      amount: new FormControl(1, [Validators.required]),
-      from: new FormControl('EUR', [Validators.required]),
-      to: new FormControl('USD', [Validators.required]),
+      amount: new FormControl(this.amount, [Validators.required]),
+      from: new FormControl(this.from, [Validators.required]),
+      to: new FormControl(this.to, [Validators.required]),
     });
   }
 
@@ -64,7 +76,6 @@ export class ConverterFormComponent implements OnInit {
   getCurrencies(): void {
     this.convertService.getCurrencies().subscribe((res: ApiResponse) => {
       this.currencies = Object.keys(res.rates);
-      this.convertedValue = res.rates.USD;
       this.exchangeValue = `1 Euro = ${this.convertedValue} USD`;
     });
   }
@@ -95,5 +106,14 @@ export class ConverterFormComponent implements OnInit {
           payload.to
         }`;
       });
+  }
+
+  moreDetails(): void {
+    const amount = this.getControl('amount')?.value;
+    const from = this.getControl('from')?.value;
+    const to = this.getControl('to')?.value;
+    this.router.navigate(['details'], {
+      queryParams: { amount, from, to, currency: from },
+    });
   }
 }

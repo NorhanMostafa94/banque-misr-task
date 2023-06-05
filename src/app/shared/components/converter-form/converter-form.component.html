@@ -69,7 +69,7 @@
   </form>
   <div class="row mt-5">
     <div class="col-12 col-md-4 mb-2">
-      <input class="form-control" type="number" [value]="convertedValue" />
+      <div class="form-control">{{ convertedValue }}</div>
     </div>
     <div class="col-12 col-md-8 mb-2">
       <div class="row">
@@ -80,7 +80,7 @@
           <button
             class="w-100 btn btn--lg btn-primary"
             [disabled]="converterForm.invalid"
-            (click)="convert()"
+            (click)="moreDetails()"
           >
             More Details
           </button>

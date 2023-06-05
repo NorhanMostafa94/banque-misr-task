@@ -7,6 +7,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/home/home.module').then((m) => m.HomeModule),
   },
+  {
+    path: 'details',
+    loadChildren: () =>
+      import('./modules/currency-details/currency-details.module').then(
+        (m) => m.CurrencyDetailsModule
+      ),
+  },
   { path: '**', redirectTo: 'home' },
 ];
 

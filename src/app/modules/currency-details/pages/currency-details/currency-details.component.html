@@ -1,0 +1,9 @@
+<section class="details">
+  <div class="details__header d-flex justify-content-between">
+    <h1 class="details__header-title">{{ currency }}</h1>
+    <a routerLink="/" class="btn btn-primary btn--sm"> back to home</a>
+  </div>
+  <div class="mt-5">
+    <app-converter-form [amount]="amount" [from]="from" [to]="to"></app-converter-form>
+  </div>
+</section>
