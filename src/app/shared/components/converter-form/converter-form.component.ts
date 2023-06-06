@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -19,7 +25,7 @@ import { Router } from '@angular/router';
   templateUrl: './converter-form.component.html',
   styleUrls: ['./converter-form.component.scss'],
 })
-export class ConverterFormComponent implements OnInit, OnChanges {
+export class ConverterFormComponent implements OnInit {
   converterForm: FormGroup = new FormGroup({});
 
   convertedValue: number = 0;
@@ -31,6 +37,9 @@ export class ConverterFormComponent implements OnInit, OnChanges {
   @Input() to: string = 'USD';
   @Input() amount: number = 1;
 
+  @Input() fromDisabled: boolean = false;
+  @Input() showDetailsButton: boolean = true;
+
   @Output() amountValue = new EventEmitter<number>();
 
   constructor(
@@ -38,12 +47,6 @@ export class ConverterFormComponent implements OnInit, OnChanges {
     private convertService: ConverterService,
     private router: Router
   ) {}
-
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.initiateForm();
-    this.convert();
-  }
 
   ngOnInit(): void {
     this.getCurrencies();
@@ -56,7 +59,9 @@ export class ConverterFormComponent implements OnInit, OnChanges {
   initiateForm(): void {
     this.converterForm = this.fb.group({
       amount: new FormControl(this.amount, [Validators.required]),
-      from: new FormControl(this.from, [Validators.required]),
+      from: new FormControl({ value: this.from, disabled: this.fromDisabled }, [
+        Validators.required,
+      ]),
       to: new FormControl(this.to, [Validators.required]),
     });
   }
@@ -76,7 +81,9 @@ export class ConverterFormComponent implements OnInit, OnChanges {
   getCurrencies(): void {
     this.convertService.getCurrencies().subscribe((res: ApiResponse) => {
       this.currencies = Object.keys(res.rates);
+      this.convertedValue = res.rates.USD;
       this.exchangeValue = `1 Euro = ${this.convertedValue} USD`;
+      this.convert();
     });
   }
 
@@ -96,7 +103,8 @@ export class ConverterFormComponent implements OnInit, OnChanges {
    * @description `convert() to convert currencies`
    */
   convert(): void {
-    const payload = this.converterForm.value;
+    const payload = this.converterForm.getRawValue();
+    debugger;
     this.amountValue.emit(payload.amount);
     this.convertService
       .convert({ ...payload })
