@@ -5,7 +5,7 @@
     <div class="header__btns">
       <a
         class="header__btns-btn btn btn--lg btn--border-primary"
-        [routerLink]="[link.path]"
+        (click)="navigateToDetails(link)"
         *ngFor="let link of links; trackBy: trackByFn"
         >{{ link.text }}</a
       >

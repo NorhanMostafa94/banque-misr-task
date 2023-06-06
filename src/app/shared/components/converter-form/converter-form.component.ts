@@ -2,9 +2,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AbstractControl,
   FormBuilder,
@@ -18,14 +21,14 @@ import { ApiResponse } from 'src/app/core/interfaces';
 
 // services
 import { ConverterService } from '../../services/converter.service';
-import { Router } from '@angular/router';
+import { Currency } from '../../enums';
 
 @Component({
   selector: 'app-converter-form',
   templateUrl: './converter-form.component.html',
   styleUrls: ['./converter-form.component.scss'],
 })
-export class ConverterFormComponent implements OnInit {
+export class ConverterFormComponent implements OnInit, OnChanges {
   converterForm: FormGroup = new FormGroup({});
 
   convertedValue: number = 0;
@@ -33,8 +36,8 @@ export class ConverterFormComponent implements OnInit {
 
   currencies: string[] = [];
 
-  @Input() from: string = 'EUR';
-  @Input() to: string = 'USD';
+  @Input() from: string = Currency.EUR;
+  @Input() to: string = Currency.GBP;
   @Input() amount: number = 1;
 
   @Input() fromDisabled: boolean = false;
@@ -47,6 +50,11 @@ export class ConverterFormComponent implements OnInit {
     private convertService: ConverterService,
     private router: Router
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initiateForm();
+    this.convert();
+  }
 
   ngOnInit(): void {
     this.getCurrencies();
