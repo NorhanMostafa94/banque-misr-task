@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
-// services
-import { ConverterService } from 'src/app/shared/services/converter.service';
+// enums
+import { Currency } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-currency-details',
@@ -10,15 +10,12 @@ import { ConverterService } from 'src/app/shared/services/converter.service';
   styleUrls: ['./currency-details.component.scss'],
 })
 export class CurrencyDetailsComponent implements OnInit {
-  from: string = 'EUR';
-  to: string = 'USD';
+  from: string = Currency.EUR;
+  to: string = Currency.USD;
   amount: number = 1;
-  currency: string = 'EUR';
+  currency: string = 'EURO';
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private convertService: ConverterService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getQueryParams();
