@@ -37,7 +37,7 @@ export class ConverterFormComponent implements OnInit, OnChanges {
   currencies: string[] = [];
 
   @Input() from: string = Currency.EUR;
-  @Input() to: string = Currency.GBP;
+  @Input() to: string = Currency.USD;
   @Input() amount: number = 1;
 
   @Input() fromDisabled: boolean = false;
